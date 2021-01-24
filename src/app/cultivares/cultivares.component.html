@@ -1,1 +1,34 @@
-<p>cultivares works!</p>
+<h4 class="info-title">Cultivares</h4>
+
+<div  *ngIf="cultivares && cultivares.length > 0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Cultivar</th>
+                <th scope="col">UF</th>
+                <th scope="col">Safra</th>
+                <th scope="col">Obtentor Mantenedor</th>
+                <th scope="col">Potencial Produtivo</th>
+                <th scope="col">Data Atualização</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cultivar of cultivares">
+                <td>{{cultivar.cultivar}}</td>
+                <td>{{cultivar.uf}}</td>
+                <td>{{cultivar.safra}}</td>
+                <td>{{cultivar.obtentorMantenedor}}</td>
+                <td>{{cultivar.potencialProdutivo}}</td>
+                <td>{{cultivar.dataAtualizacao}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p *ngIf="!cultivares">
+    Erro ao executar a requisição à API.
+</p>
+
+<p *ngIf="cultivares && cultivares.length == 0">
+    Nenhum cultivar a ser exibido.
+</p>

@@ -1,0 +1,17 @@
+tr:nth-child(odd){
+    background-color: rgba(48, 172, 103, 0.5) !important;
+    color: #fff !important;
+}
+th, tr:nth-child(even){
+    background-color: #fff !important;
+    color: rgba(48, 172, 103) !important;
+}
+tr:hover{
+    background-color: #353435 !important;
+    color: #fff !important;
+}
+
+
+.info-title{
+    color:rgba(48, 172, 103);
+}

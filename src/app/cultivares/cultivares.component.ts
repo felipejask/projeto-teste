@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Component, Input, OnInit } from '@angular/core';
+import {  Cultura } from '../culturas/culturas.component';
 
 export class Cultivar {
   constructor(
@@ -27,6 +28,7 @@ export class Cultivar {
   styleUrls: ['./cultivares.component.css']
 })
 export class CultivaresComponent implements OnInit {
+  @Input() culturaId: number;
 
   cultivares: Cultivar[];
 
@@ -35,6 +37,23 @@ export class CultivaresComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getCultivares();
   }
+  
+  getCultivares(){
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer 15bf5df6-3f5d-3734-8806-d7401e923a76' //chave válida por 1 ano
+    });
 
+    let params = new HttpParams()
+      .set('idCultura', `${this.culturaId}`)
+      .set('uf', 'RS');
+
+    this.httpClient.get<any>('https://api.cnptia.embrapa.br/agritec/v1/cultivares', {headers, params}).subscribe( //Se o tipo não for any o terminal acusa erro de não existir a propriedade data
+      response => {
+        this.cultivares = response.data;
+      }
+    );
+  }
 }

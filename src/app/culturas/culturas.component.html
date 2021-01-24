@@ -1,1 +1,15 @@
-<p>culturas works!</p>
+<div class="card" style="margin-bottom: 5px;" *ngFor="let cultura of culturas">
+    <div class="card-header" id="cultura-{{cultura.id}}">
+        <h5 class="mb-0">
+            <button type="button" class="btn btn-outline-primary" (click)="isCollapsed[cultura.id] = !isCollapsed[cultura.id]" [attr.aria-expanded]="!isCollapsed[cultura.id]" aria-controls="collapseCultura-{{cultura.id}}">
+                {{cultura.cultura}}
+            </button>
+        </h5>
+    </div>
+
+    <div id="collapseCultura-{{cultura.id}}" [ngbCollapse]="!isCollapsed[cultura.id]">
+        <div class="card-body p-5">
+            <app-cultivares [culturaId] = cultura.id></app-cultivares>
+        </div>
+    </div>
+</div>
