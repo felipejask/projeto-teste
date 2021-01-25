@@ -1,6 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import {  Cultura } from '../culturas/culturas.component';
 
 export class Cultivar {
   constructor(
@@ -31,6 +30,7 @@ export class CultivaresComponent implements OnInit {
   @Input() culturaId: number;
 
   cultivares: Cultivar[];
+  filtroAtual: string;
 
   constructor(
     private httpClient: HttpClient
@@ -40,7 +40,7 @@ export class CultivaresComponent implements OnInit {
     this.getCultivares();
   }
   
-  getCultivares(){
+  getCultivares(filtro?: string){
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: 'Bearer 15bf5df6-3f5d-3734-8806-d7401e923a76' //chave válida por 1 ano
@@ -52,7 +52,14 @@ export class CultivaresComponent implements OnInit {
 
     this.httpClient.get<any>('https://api.cnptia.embrapa.br/agritec/v1/cultivares', {headers, params}).subscribe( //Se o tipo não for any o terminal acusa erro de não existir a propriedade data
       response => {
-        this.cultivares = response.data;
+        if(filtro){
+          this.cultivares = response.data.filter(x => x.cultivar.concat(x.safra, x.obtentorMantenedor).includes(filtro));
+          this.filtroAtual = filtro;            
+        }
+        else {
+          this.cultivares = response.data;
+          this.filtroAtual = "";
+        }
       }
     );
   }
