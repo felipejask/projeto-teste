@@ -1,0 +1,90 @@
+<h4 class="info-title">Cultivares</h4>
+
+<div *ngIf="cultivares && cultivares.length > 0">
+    <div class="row justify-content-center mb-2">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form class="card card-sm">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input #txtSearch class="form-control form-control-borderless" placeholder="Pesquise por cultivar, safra, obtentor/mantenedor" value="{{filtroAtual}}">
+                        <i class="fa fa-times"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto px-2">
+                        <button class="btn btn-cancel" type="button" (click)="getCultivares()">Cancelar</button>
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-search" type="button" (click)="getCultivares(txtSearch.value)">Pesquisar</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Cultivar</th>
+                <th scope="col">UF</th>
+                <th scope="col">Safra</th>
+                <th scope="col">Obtentor/Mantenedor</th>
+                <th scope="col">Potencial Produtivo</th>
+                <th scope="col">Data Atualização</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cultivar of cultivares">
+                <td>{{cultivar.cultivar}}</td>
+                <td>{{cultivar.uf}}</td>
+                <td>{{cultivar.safra}}</td>
+                <td>{{cultivar.obtentorMantenedor}}</td>
+                <td>{{cultivar.potencialProdutivo}}</td>
+                <td>{{cultivar.dataAtualizacao}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="!cultivares">
+    <p>
+        Erro ao executar a requisição à API.
+    </p>
+</div>
+
+<div *ngIf="cultivares && cultivares.length == 0">
+    <div class="row justify-content-center mb-2">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form class="card card-sm">
+                <div class="row no-gutters align-items-center">
+                    <div class="col-auto">
+                        <i class="fas fa-search text-body"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col">
+                        <input #txtSearch class="form-control form-control-borderless" type="search" placeholder="Pesquise por cultivar, safra, obtentor/mantenedor">
+                        <i class="fa fa-times"></i>
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-cancel" type="button" (click)="getCultivares()">Cancelar</button>
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-search" type="button" (click)="getCultivares(txtSearch.value)">Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+        <!--end of col-->
+    </div>
+    <p>
+        Nenhum cultivar a ser exibido.
+    </p>
+</div>
